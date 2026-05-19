@@ -1,6 +1,16 @@
 ---
 name: d365-validation-testing
 description: Use after deployment to validate the F&O environment by executing every end-to-end business-process test scenario from `Documentation/test-scenarios.json` start-to-finish (Source-to-Pay, Order-to-Cash, Record-to-Report, etc.). Drives the fix-loop — when a test fails, fix the SOURCE configuration file, re-deploy via the `d365-deployment` skill, then re-test. This is Phase 2 Step 2.2 of the implementation lifecycle. Pair with `fo-mcp-server` and `reinforcement-learning`.
+license: Proprietary
+metadata:
+  domain: dynamics-365-fo
+  layer: "1"
+  version: "1.0"
+allowed-tools:
+  - codebase
+  - editFiles
+  - Finance & Operations/*
+  - Microsoft Learn/*
 ---
 
 # E2E Validation & Testing (Phase 2.2)

@@ -1,6 +1,11 @@
 ---
 name: reinforcement-learning
 description: Use whenever a challenge, error, workaround, or non-obvious discovery is encountered during ANY phase of D365 F&O work. Captures the issue in `ChallengeJournal/challenge_journal.json`, classifies it (Rule / Discovery / Gap / Sequence), routes the insight to the correct destination (module `.md` file, DMF template, or process catalogue), and verifies the update so the next similar challenge is resolved faster. Also: ALWAYS query the journal BEFORE risky operations to apply known preventive measures.
+license: Proprietary
+metadata:
+  domain: dynamics-365-fo
+  layer: "4"
+  version: "1.0"
 ---
 
 # Reinforcement Learning Loop
@@ -46,29 +51,14 @@ The canonical schema is [`schemas/challenge-journal.schema.json`](../../schemas/
 
 Optional but encouraged: `projectId`, `recurrenceCount`, `supersedes[]`, `supersededBy`, `preventionEffective`.
 
-## Deduplication (mandatory before insert)
-1. Compute `dedupHash = SHA-1(module + "|" + category + "|" + symptom.operation + "|" + rootCause)`.
-2. Search `challenge_journal.json` for an entry with the same `dedupHash`.
-3. If found → **do not insert a new entry**. Increment `recurrenceCount` on the existing entry, append today's date to `recurrenceDates[]`, and update `lastSeen`.
-4. If not found → insert a new entry with `recurrenceCount = 1`.
+## Deduplication, KPI tracking & supersede chains
 
-## Supersede chains (when knowledge changes)
-When a new fix contradicts a previously documented one (e.g., MS Learn updated, F&O version bump):
-1. Mark the old entry: `resolution.status = "superseded"`, `supersededBy = <new id>`.
-2. The new entry lists `supersedes: [<old id>, ...]`.
-3. Both entries remain queryable; pre-flight lookup ignores `superseded` entries.
+Full procedures are in [references/dedup-and-kpi.md](references/dedup-and-kpi.md). Load that file when you need exact dedup hash construction, KPI averaging formula, or supersede chain management.
 
-## KPI tracking
-Each successful pre-flight match (a journal entry actively prevented a recurrence) bumps:
-- `entry.preventionEffective.preventedCount += 1` and `lastPreventedAt = today`.
-- `_metadata.kpi.preventedRecurrences += 1` (file-level counter).
-On resolution of new entries, update `_metadata.kpi.averageTimeToResolveMinutes` (running avg).
-
-## Project-ID namespacing (multi-tenant)
-When the agent is operating under a `projectId` (set in `run-state.json`):
-- New journal entries get `projectId = <id>`.
-- Pre-flight lookup filters first by exact `projectId`, then falls back to `projectId = null` (global learnings) if no project-scoped match is found.
-- See `skills/d365-knowledge-routing/SKILL.md` §5 for the full namespacing convention covering Documentation, ChallengeJournal, and per-project `.discoveries/` overlays.
+**Summary**:
+- Compute `dedupHash` before every insert; if found, increment `recurrenceCount` instead of inserting.
+- Superseded entries stay in the journal but are skipped by pre-flight lookups.
+- Every pre-flight match that prevents a recurrence increments `preventionEffective.preventedCount`.
 
 ## Pre-operation query (mandatory)
 Before any module deployment, validation step, or risky tool call:

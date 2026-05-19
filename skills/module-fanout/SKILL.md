@@ -1,6 +1,11 @@
 ---
 name: module-fanout
 description: Use whenever a phase skill needs to perform repetitive per-module work across multiple D365 F&O modules (config building in Phase 1.2, deployment in Phase 2.1, validation in Phase 2.2). Defines the sub-agent dispatch pattern, the input/output contract every worker must honour, the parallelization rules (parallel within DMF `ExecutionUnit`, sequential across), the wave/batch sequencing for DMF order (010 → 650), result aggregation, and failure-handling/retry semantics. Pairs each module-level call with the appropriate worker skill (`module-config-worker`, `module-deployment-worker`, `module-validation-worker`).
+license: Proprietary
+metadata:
+  domain: dynamics-365-fo
+  layer: "2"
+  version: "1.0"
 ---
 
 # Module Fan-Out Pattern (Layer 2)
@@ -60,11 +65,16 @@ Wave construction rules:
 
 ---
 
-## Worker prompt template
+## Worker dispatch (VS Code subagent invocation)
 
-For every module in a wave, the orchestrator dispatches a sub-agent (use the `task` tool with `agent_type: general-purpose`) with this prompt skeleton:
+For every module in a wave, the orchestrator spawns a subagent. In VS Code agent mode, use the built-in `agent` tool to invoke the target worker agent by name. The worker skill runs in a **forked context** (`context: fork` in its frontmatter) — only its final JSON output contract is returned to the orchestrator.
 
+**VS Code invocation pattern**:
 ```
+Invoke subagent: module-config-worker   (or module-deployment-worker / module-validation-worker)
+
+Prompt to send:
+---
 You are running the `<worker-skill>` skill for the D365 F&O implementation accelerator.
 
 MODULE: <module>
@@ -76,16 +86,19 @@ PHASE: <phase>
 Required inputs (read these in your sub-agent context):
 - <list of files>
 
-Required skills (load these via SKILL.md frontmatter):
+Required skills (load via their SKILL.md):
 - <worker-skill>
-- fo-mcp-server (if Phase 2.x)
+- fo-mcp-server (Phase 2.x only)
 - reinforcement-learning
 
 Scope requirements (filtered to this module):
 <json subset of requirement-matrix.json>
 
-Output contract: return JSON matching the schema below.
+Output contract: return JSON conforming to schemas/fan-out-contract.schema.json
+---
 ```
+
+> **Note**: Worker skills declare `user-invocable: false` and `disable-model-invocation: true`. They will not appear in the slash menu and the model will not auto-load them. They are only reachable through this explicit subagent invocation.
 
 ---
 

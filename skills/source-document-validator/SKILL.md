@@ -1,6 +1,12 @@
 ---
 name: source-document-validator
 description: Use as a HARD GATE at the start of Phase 1.1 (and any time new files arrive in `Requirements/`) to validate that every source document can actually be read and that the extracted content is sufficient. Detects encrypted/password-protected files, corrupt files, scanned-image PDFs that need OCR, empty or suspiciously short extractions, unsupported formats, and macro-enabled Office files. Produces `Documentation/source-document-validation.json` (machine-readable) and `Documentation/source-document-validation.md` (human-readable). If ANY document is classified as `blocker`, Phase 1.1 (`d365-requirements-analysis`) MUST NOT proceed — surface the blocker list to the user and request unencrypted/readable replacements before continuing.
+compatibility: Python extraction toolchain recommended — pypdf/pdfplumber, python-docx, openpyxl, python-pptx, xlrd, chardet, striprtf. Falls back to best-effort text read; missing extractors are treated as blocker findings unless waived.
+license: Proprietary
+metadata:
+  domain: dynamics-365-fo
+  layer: "4"
+  version: "1.0"
 ---
 
 # Source Document Validator (Phase 1.0 — pre-flight)

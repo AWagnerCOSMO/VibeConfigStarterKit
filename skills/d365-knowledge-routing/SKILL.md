@@ -1,6 +1,11 @@
 ---
 name: d365-knowledge-routing
 description: Use when you need a file path. Provides the keyword router and DMF dependency rules so any task can find the right module knowledge file (`.md`), DMF template (`.json`), or supporting artefact. The full 47-module index and end-to-end process matrix live in the sidecar `module-index.md` — load that ONLY when you need exhaustive lookups. Do NOT load this skill speculatively; only when a path is unknown.
+license: Proprietary
+metadata:
+  domain: dynamics-365-fo
+  layer: "4"
+  version: "1.0"
 ---
 
 # D365 F&O Knowledge Routing

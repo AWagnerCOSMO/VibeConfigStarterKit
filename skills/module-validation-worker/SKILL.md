@@ -1,6 +1,14 @@
 ---
 name: module-validation-worker
 description: ⚠️ SUB-AGENT ONLY — never invoke from main context. Invoked by `module-fanout` from `d365-validation-testing`. Executes the E2E test scenarios touching ONE module's process slice during Phase 2.2. Drives every assigned scenario through the D365 F&O MCP server start-to-finish, captures pass/fail per step, runs the localized fix-loop (fix source → request re-deploy via orchestrator → re-test), logs failures, and returns the standard fan-out output contract (see `schemas/fan-out-contract.schema.json`). Pairs MANDATORILY with `fo-mcp-server` and `reinforcement-learning`.
+user-invocable: false
+disable-model-invocation: true
+context: fork
+license: Proprietary
+metadata:
+  domain: dynamics-365-fo
+  layer: "3"
+  version: "1.0"
 ---
 
 # Module Validation Worker (Layer 3)

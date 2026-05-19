@@ -1,6 +1,14 @@
 ---
 name: module-deployment-worker
 description: ⚠️ SUB-AGENT ONLY — never invoke from main context. Invoked by `module-fanout` from `d365-deployment`. Deploys ONE D365 F&O module to a live environment during Phase 2.1. The worker pre-checks upstream state, walks the module's deployment plan (data entities → form config → actions) using the Dynamics 365 ERP MCP server (`data_*` → `form_*` → `api_*`), validates the deployed state, logs failures via `reinforcement-learning`, and returns the standard fan-out output contract (see `schemas/fan-out-contract.schema.json`). Pairs MANDATORILY with the `fo-mcp-server` skill — every MCP tool call must follow those rules.
+user-invocable: false
+disable-model-invocation: true
+context: fork
+license: Proprietary
+metadata:
+  domain: dynamics-365-fo
+  layer: "3"
+  version: "1.0"
 ---
 
 # Module Deployment Worker (Layer 3)

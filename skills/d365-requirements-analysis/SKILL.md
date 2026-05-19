@@ -1,6 +1,15 @@
 ---
 name: d365-requirements-analysis
 description: Use at the start of a new D365 F&O project, or when requirements change, to ingest raw requirement documents from the `Requirements/` folder, classify each requirement (Standard Config, Data Migration, Parameter Setting, Workflow, Integration, Gap, Clarification), map every requirement to the correct module/entity/feature, and produce `Documentation/requirement-profile.md` and `Documentation/requirement-matrix.json`. This is Phase 1 Step 1.1 of the implementation lifecycle.
+license: Proprietary
+metadata:
+  domain: dynamics-365-fo
+  layer: "1"
+  version: "1.0"
+allowed-tools:
+  - codebase
+  - fetch
+  - Microsoft Learn/*
 ---
 
 # Requirements Analysis (Phase 1.1)

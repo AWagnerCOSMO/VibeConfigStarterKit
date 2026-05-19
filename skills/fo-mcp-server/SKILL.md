@@ -1,6 +1,12 @@
 ---
 name: fo-mcp-server
 description: Use when interacting with a Dynamics 365 Finance & Operations environment through the Dynamics 365 ERP MCP server — i.e. whenever a `data_*`, `form_*`, or `api_*` MCP tool call is planned. Covers tool selection hierarchy, naming conventions, OData/SQL querying, form navigation, action invocation, prerequisites (feature flag, allowed clients, version requirements), and the dynamic-vs-static server distinction. Read BEFORE the first tool call of any deployment, validation, or data-exploration task.
+compatibility: Requires the Dynamics 365 ERP MCP server (dynamic variant, F&O 10.0.44+). Feature flag "Copilot in Finance and Operations" must be enabled. Static MCP server (retired 2026) is not supported.
+license: Proprietary
+metadata:
+  domain: dynamics-365-fo
+  layer: "4"
+  version: "1.0"
 ---
 
 # Dynamics 365 ERP MCP Server — Interaction Skill

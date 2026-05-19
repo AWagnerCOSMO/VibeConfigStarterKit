@@ -1,6 +1,16 @@
 ---
 name: d365-config-builder
 description: Use after the requirement profile is complete to translate requirements into deployable configuration files (DMF JSON templates, CSV data files, parameter-settings markdown), produce the cross-module rollout plan and end-to-end test plan, validate completeness, and run the Phase 1 approval gate. Covers Phase 1 Steps 1.2 → 1.5 of the D365 F&O implementation lifecycle. Source files produced here are the AUTHORITATIVE source of truth for everything that gets deployed in Phase 2.
+license: Proprietary
+metadata:
+  domain: dynamics-365-fo
+  layer: "1"
+  version: "1.0"
+allowed-tools:
+  - codebase
+  - editFiles
+  - fetch
+  - Microsoft Learn/*
 ---
 
 # Configuration Builder & Rollout Planner (Phase 1.2 – 1.5)

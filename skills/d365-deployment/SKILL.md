@@ -1,6 +1,16 @@
 ---
 name: d365-deployment
 description: Use after the Phase 1 approval gate passes to deploy configuration to a Dynamics 365 F&O environment via the Dynamics 365 ERP MCP server. Walks each module in DMF dependency order (010 → 650) through pre-deployment checks, data-entity deployment (Priority 1 — `data_*` tools), form-based deployment (Priority 2 — `form_*` tools), post-deployment actions (Priority 3 — `api_*` tools), and per-module validation. This is Phase 2 Step 2.1. ALWAYS pair with the `fo-mcp-server` skill (which holds the operational rules for every MCP tool call) and the `reinforcement-learning` skill (for failure logging).
+license: Proprietary
+metadata:
+  domain: dynamics-365-fo
+  layer: "1"
+  version: "1.0"
+allowed-tools:
+  - codebase
+  - editFiles
+  - Finance & Operations/*
+  - Microsoft Learn/*
 ---
 
 # Deployment via the F&O MCP Server (Phase 2.1)

@@ -1,6 +1,14 @@
 ---
 name: d365-documentation
 description: Use after Phase 2 validation passes to generate the Phase 3 HTML deliverable suite under `Documentation/html/`. Produces seven single-file HTML documents — two narrative reports (`rollout-report.html`, `environment-config.html`) plus five interactive dashboards (`test-results.html`, `challenge-journal.html`, `process-catalogue.html`, `dependency-graph.html`, `run-state.html`). All seven are self-contained — embedded CSS/JS, no external network calls, professional styling, interactive elements (collapsible sections, search/filter, diagrams). Pull data exclusively from Phase 1 / Phase 2 artefacts and from the canonical JSON files under `Modules/`, `ChallengeJournal/`, `Documentation/` — never invent.
+license: Proprietary
+metadata:
+  domain: dynamics-365-fo
+  layer: "1"
+  version: "1.0"
+allowed-tools:
+  - codebase
+  - editFiles
 ---
 
 # Documentation Generation (Phase 3)

@@ -1,6 +1,11 @@
 ---
 name: financial-compliance-guard
 description: NON-NEGOTIABLE compliance gate for any project that configures D365 Finance modules (General Ledger, AP, AR, Fixed Assets, Cash & Bank, Tax, Budgeting, Project Accounting, Expense). Captures the customer's applicable accounting and regulatory frameworks (US GAAP, IFRS, local GAAPs, SOX, ASC 606 / IFRS 15, ASC 842 / IFRS 16, SAF-T, GoBD, MTD-VAT, ESG/CSRD, etc.) at Phase 1.1, and validates the proposed AND deployed configuration against them at Phase 1.4 (config validation), Phase 1.5 (approval gate), and Phase 2.2 (E2E testing). If any check has `result = fail` and `severity = blocker`, the project STOPS — Phase 1.5 cannot pass and Phase 2.1 must not start. Produces `Documentation/compliance-validation.json` and `Documentation/compliance-validation.md`.
+license: Proprietary
+metadata:
+  domain: dynamics-365-fo
+  layer: "4"
+  version: "1.0"
 ---
 
 # Financial Compliance Guard

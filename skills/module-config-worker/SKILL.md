@@ -1,6 +1,14 @@
 ---
 name: module-config-worker
 description: ⚠️ SUB-AGENT ONLY — never invoke from main context. Invoked by `module-fanout` from `d365-config-builder`. Builds ALL configuration artefacts for ONE D365 F&O module during Phase 1.2. The worker reads the assigned module's `.md` knowledge file and existing DMF template, derives field values from its scoped requirements, produces the updated DMF JSON, per-entity CSV data files, parameter-settings markdown, and a per-module config summary — then returns the standard fan-out output contract (see `schemas/fan-out-contract.schema.json`). Stays in its OWN context window so the orchestrator never sees module-level detail.
+user-invocable: false
+disable-model-invocation: true
+context: fork
+license: Proprietary
+metadata:
+  domain: dynamics-365-fo
+  layer: "3"
+  version: "1.0"
 ---
 
 # Module Config Worker (Layer 3)
